@@ -644,7 +644,7 @@ MonoBehaviour:
 
     Press Space to Restart
 
-    (10s to close game)'
+    (4s to close game)'
 --- !u!222 &474497241
 CanvasRenderer:
   m_ObjectHideFlags: 0
