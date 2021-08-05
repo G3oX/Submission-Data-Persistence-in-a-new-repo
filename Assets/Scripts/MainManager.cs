@@ -12,6 +12,7 @@ public class MainManager : MonoBehaviour
 
     public Text ScoreText;
     public GameObject GameOverText;
+    [SerializeField] Text bestScore;
     
     private bool m_Started = false;
     private int m_Points;
@@ -36,6 +37,8 @@ public class MainManager : MonoBehaviour
                 brick.onDestroyed.AddListener(AddPoint);
             }
         }
+
+        setBestScore();
     }
 
     private void Update()
@@ -62,15 +65,33 @@ public class MainManager : MonoBehaviour
         }
     }
 
+    public void setBestScore()
+    {
+        PersistentData.SaveData data = PersistentData.instance.loadSaveData();
+        // Load data from files (Using the persistent data method)
+        bestScore.text = "Best Score: " + data.highScore + " Name: " + data.bestPlayerName;
+    }
+
     void AddPoint(int point)
     {
         m_Points += point;
-        ScoreText.text = $"Score : {m_Points}";
+        if (PersistentData.instance != null)
+            ScoreText.text = $"Score : {m_Points} || Player: {PersistentData.instance.getPlayerName()}";
+        else
+            ScoreText.text = $"Score : {m_Points}";
     }
 
     public void GameOver()
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+        // Save data if it is the best score (Using the persistent data method)
+        PersistentData.instance.saveData(m_Points, PersistentData.instance.getPlayerName());
+        Invoke("returnToMainMenu", 10f);
+    }
+
+    public void returnToMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }
