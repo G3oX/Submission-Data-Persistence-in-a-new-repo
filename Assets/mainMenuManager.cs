@@ -43,6 +43,11 @@ public class mainMenuManager : MonoBehaviour
         warningWindow.SetActive(false);
     }
 
+    public void resetDataButton()
+    {
+        PersistentData.instance.resetSaveData();
+    }
+
     public void closeApplication()
     {
 #if UNITY_EDITOR

@@ -87,7 +87,7 @@ public class MainManager : MonoBehaviour
         GameOverText.SetActive(true);
         // Save data if it is the best score (Using the persistent data method)
         PersistentData.instance.saveData(m_Points, PersistentData.instance.getPlayerName());
-        Invoke("returnToMainMenu", 10f);
+        Invoke("returnToMainMenu", 4f);
     }
 
     public void returnToMainMenu()

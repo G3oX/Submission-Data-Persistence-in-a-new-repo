@@ -68,4 +68,14 @@ public class PersistentData : MonoBehaviour
         }
     }
 
+    public void resetSaveData()
+    {
+        SaveData data = new SaveData();
+        data.highScore = 0;
+        data.bestPlayerName = "";
+        string json = JsonUtility.ToJson(data);
+        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+        Debug.Log("Data reseted");
+    }
+
 }
